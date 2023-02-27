@@ -13,20 +13,14 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
 # Debug architecture identification
-RUN echo "Architecture: $(uname -m)" \
-  && echo "Target Platform: ${TARGETPLATFORM}" \
-  && echo "Build Platform: ${BUILDPLATFORM}" \
-  && echo "Build Date: ${BUILD_DATE}" \
-  && echo "VCS Ref: ${VCS_REF}" \
-  && echo "VCS URL: ${VCS_URL}" \
-  && exit 1
+RUN 
 
 # Set the timezone
 RUN ln -fs /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
 
 # Set the apt to not install recommends and suggests
-RUN echo "APT::Install-Recommends 0;" >> /etc/apt/apt.conf.d/01norecommends \
-  && echo "APT::Install-Suggests 0;" >> /etc/apt/apt.conf.d/01norecommends
+#RUN echo "APT::Install-Recommends 0;" >> /etc/apt/apt.conf.d/01norecommends \
+#  && echo "APT::Install-Suggests 0;" >> /etc/apt/apt.conf.d/01norecommends
 
 # Set the locale
 RUN apt-get update \
@@ -63,7 +57,8 @@ RUN apt-get update \
     biber \
     fontconfig \
     texlive-xetex \
-  && wget https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-$(uname -m)-1-${TARGETPLATFORM}.deb -O /pandoc.deb \
+  && [[ "$uname -m" == "x86_64" ]] && export ARCH="amd64" || export ARCH="aarch64" \
+  && wget https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-$(uname -m)-1-${ARCH}.deb -O /pandoc.deb \
   && dpkg -i /pandoc.deb \
   && apt -f install \
   && fc-cache -v -f \
