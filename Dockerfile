@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1.2
 FROM ubuntu:focal-20230126
 
 ENV PANDOC_VERSION "3.1"
@@ -36,7 +37,7 @@ RUN apt-get update \
     biber \
     fontconfig \
     texlive-xetex \
-  && wget https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-1-amd64.deb -O /pandoc.deb \
+  && wget https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-1-${TARGETPLATFORM}.deb -O /pandoc.deb \
   && dpkg -i /pandoc.deb \
   && apt -f install \
   && fc-cache -v -f \
@@ -56,7 +57,7 @@ ENTRYPOINT ["/entrypoint.sh"]
 LABEL org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.name="Pandoc" \
       org.label-schema.description="Pandoc" \
-      org.label-schema.url="https://frederico.cf" \
+      org.label-schema.url="https://fboaventura.dev" \
       org.label-schema.vcs-url=$VCS_URL \
       org.label-schema.vcs-ref=$VCS_REF \
       org.label-schema.version=${PANDOC_VERSION} \
@@ -64,4 +65,3 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.author="Frederico Freire Boaventura" \
       org.label-schema.docker.dockerfile="/Dockerfile" \
       org.label-schema.license="LGPLv3"
-
