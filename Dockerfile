@@ -1,6 +1,6 @@
 FROM ubuntu:focal-20230126
 
-ENV PANDOC_VERSION "2.9"
+ENV PANDOC_VERSION "3.1"
 
 # To use apt-cacher-ng while building locally
 # ADD files/deb-proxy.conf /etc/apt/apt.conf.d/10-proxy
@@ -24,10 +24,12 @@ RUN apt-get update \
   && apt-get install --yes --no-install-recommends \
     lmodern \
     texlive-latex-base \
+    texlive-latex-recommended \
     texlive-fonts-recommended \
-    texlive-generic-recommended \
     texlive-lang-english \
     texlive-lang-german \
+    texlive-lang-portuguese \
+    texlive-lang-italian \
     texlive-science \
     texlive-latex-extra \
     texlive-bibtex-extra \
