@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:focal-20230126
 
 ENV PANDOC_VERSION "2.9"
 
