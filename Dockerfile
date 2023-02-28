@@ -36,7 +36,7 @@ RUN apt-get update \
     biber \
     fontconfig \
     texlive-xetex \
-  && wget https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-$(uname -m)-1-${ARCH}.deb -O /pandoc.deb \
+  && wget https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-1-${ARCH}.deb -O /pandoc.deb \
   && dpkg -i /pandoc.deb \
   && apt -f install \
   && fc-cache -v -f \
