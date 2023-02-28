@@ -1,12 +1,8 @@
 # syntax=docker/dockerfile:1.2
 FROM ubuntu:focal-20230126
 
+ARG ARCH="adm64"
 ENV PANDOC_VERSION "3.1"
-
-# To use apt-cacher-ng while building locally
-# ADD files/deb-proxy.conf /etc/apt/apt.conf.d/10-proxy
-
-# Set to Non-Interactive
 ENV DEBIAN_FRONTEND noninteractive
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
@@ -40,7 +36,6 @@ RUN apt-get update \
     biber \
     fontconfig \
     texlive-xetex \
-  && if [ "$(uname -m)" == "x86_64" ]; then export ARCH="amd64"; else export ARCH="aarch64"; fi \
   && wget https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-$(uname -m)-1-${ARCH}.deb -O /pandoc.deb \
   && dpkg -i /pandoc.deb \
   && apt -f install \
