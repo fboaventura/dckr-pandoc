@@ -11,7 +11,7 @@ ENV LC_ALL en_US.UTF-8
 # Set the timezone
 RUN ln -fs /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
 
-RUN echo "=-=-=-= ENVIRONMENT  DEBUG =-=-=-=" && ENV && echo "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" %% exit 1
+RUN echo "=-=-=-= ENVIRONMENT  DEBUG =-=-=-=" && env || set && echo "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" %% exit 1
 # Install all TeX and LaTeX dependences
 RUN apt-get update \
   && apt-get install --yes --no-install-recommends \
