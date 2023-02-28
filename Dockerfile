@@ -12,25 +12,8 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-# Debug architecture identification
-RUN 
-
 # Set the timezone
 RUN ln -fs /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
-
-# Set the apt to not install recommends and suggests
-#RUN echo "APT::Install-Recommends 0;" >> /etc/apt/apt.conf.d/01norecommends \
-#  && echo "APT::Install-Suggests 0;" >> /etc/apt/apt.conf.d/01norecommends
-
-# Set the locale
-RUN apt-get update \
-  && apt-get install --yes --no-install-recommends \
-    locales \
-  && echo "en_US.UTF-8 UTF-8" > /etc/locale.gen \
-  && locale-gen \
-  && apt-get autoclean \
-  && apt-get --purge --yes autoremove \
-  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/* \
 
 # Install all TeX and LaTeX dependences
 RUN apt-get update \
