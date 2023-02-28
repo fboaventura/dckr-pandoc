@@ -1,7 +1,6 @@
 # syntax=docker/dockerfile:1.2
 FROM ubuntu:focal-20230126
 
-ARG ARCH="adm64"
 ENV PANDOC_VERSION "3.1"
 ENV DEBIAN_FRONTEND noninteractive
 ENV LANG en_US.UTF-8
@@ -11,7 +10,6 @@ ENV LC_ALL en_US.UTF-8
 # Set the timezone
 RUN ln -fs /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
 
-RUN echo "=-=-=-= ENVIRONMENT  DEBUG =-=-=-=" && env || set && echo "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" %% exit 1
 # Install all TeX and LaTeX dependences
 RUN apt-get update \
   && apt-get install --yes --no-install-recommends \
@@ -37,6 +35,7 @@ RUN apt-get update \
     biber \
     fontconfig \
     texlive-xetex \
+  && if [[ "$(uname -m)" == "x86_64" ]]; then export ARCH="amd64"; else export ARCH="aarch64"; fi \
   && wget https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-1-${ARCH}.deb -O /pandoc.deb \
   && dpkg -i /pandoc.deb \
   && apt -f install \

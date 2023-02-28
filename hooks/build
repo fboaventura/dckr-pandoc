@@ -2,14 +2,12 @@
 # $IMAGE_NAME var is injected into the build so the tag is correct.
 # PLATFORMS is a comma separated list of platforms to build for.
 #    linux/amd64,linux/arm64,linux/arm/v7
-if [[ "$(uname -m)" == "x86_64" ]]; then export ARCH="amd64"; else export ARCH="aarch64"; fi
 echo "=-=-=-=-= Building Images =-=-=-=-="
 echo docker buildx build \
   --platform linux/arm64,linux/amd64 \
   --build-arg BUILD_DATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')" \
   --build-arg VERSION="$(xargs <VERSION)" \
   --build-arg VCS_REF="$(git rev-parse --short HEAD)" \
-  --build-arg ARCH=${ARCH} \
   --tag "${IMAGE_NAME}" .
 
 #docker buildx build \
