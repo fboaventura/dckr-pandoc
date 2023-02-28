@@ -40,7 +40,7 @@ RUN apt-get update \
     biber \
     fontconfig \
     texlive-xetex \
-  && [[ "$uname -m" == "x86_64" ]] && export ARCH="amd64" || export ARCH="aarch64" \
+  && if [ "$(uname -m)" == "x86_64" ]; then export ARCH="amd64"; else export ARCH="aarch64"; fi \
   && wget https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-$(uname -m)-1-${ARCH}.deb -O /pandoc.deb \
   && dpkg -i /pandoc.deb \
   && apt -f install \
