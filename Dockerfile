@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.2
-FROM ubuntu:focal-20230126
+FROM ubuntu:jammy-20230126
 
 ENV PANDOC_VERSION "3.1"
 ENV DEBIAN_FRONTEND noninteractive
@@ -21,19 +21,23 @@ RUN apt-get update \
   && echo "en_US.UTF-8 UTF-8" > /etc/locale.gen \
   && locale-gen \
   && apt-get install --yes --no-install-recommends \
+    biber \
+    fontconfig \
     lmodern \
-    texlive-latex-base \
-    texlive-latex-recommended \
+    texlive-bibtex-extra \
+    texlive-extra-utils \
+    texlive-font-utils \
+    texlive-fonts-extra \
     texlive-fonts-recommended \
     texlive-lang-english \
     texlive-lang-german \
-    texlive-lang-portuguese \
     texlive-lang-italian \
-    texlive-science \
+    texlive-lang-portuguese \
+    texlive-latex-base \
     texlive-latex-extra \
-    texlive-bibtex-extra \
-    biber \
-    fontconfig \
+    texlive-latex-recommended \
+    texlive-plain-generic \
+    texlive-science \
     texlive-xetex \
   && if [ "$(uname -m)" = "x86_64" ]; then export ARCH="amd64"; else export ARCH="arm64"; fi \
   && wget https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-1-${ARCH}.deb -O /pandoc.deb \
