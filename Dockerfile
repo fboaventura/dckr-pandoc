@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.2
-FROM ubuntu:jammy-20230126
+FROM ubuntu:24.04
 
-ENV PANDOC_VERSION "3.1"
+ENV PANDOC_VERSION "3.5"
 ENV DEBIAN_FRONTEND noninteractive
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
