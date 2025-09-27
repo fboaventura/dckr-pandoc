@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.2
-FROM ubuntu:24.04
+FROM ubuntu:24.10
 
 ENV PANDOC_VERSION "3.5"
 ENV DEBIAN_FRONTEND noninteractive
